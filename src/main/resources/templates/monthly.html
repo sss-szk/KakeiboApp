@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<!-- bootstrapの設定 -->
+<link th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}"
+	rel="stylesheet"></link>
+<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+
+<title>Monthly</title>
+</head>
+<body class="text-center">
+	<div th:fragment="monthly_contents">
+
+		<br><br>
+		<form method = "post" th:action = "@{'/' + ${userId} + '/monthly'}">
+			<input type="month" name="month" th:value="${month}" required>
+			<button type = "submit">
+				表示
+			</button>
+		</form>
+		<br><br>
+		<!-- カレンダーを表示 -->
+		<table class="monthly">
+			<tr>
+				<th class="week">日</th>
+				<th class="week">月</th>
+				<th class="week">火</th>
+				<th class="week">水</th>
+				<th class="week">木</th>
+				<th class="week">金</th>
+				<th class="week">土</th>
+			</tr>
+			<div th:each="i : ${#numbers.sequence(0, 5)}"
+				th:if="${monthArray[i][0]} != 0">
+				<tr th:class="odd">
+					<td th:each="j : ${#numbers.sequence(0, 6)}"
+						th:text="${monthArray[i][j]}">日付</td>
+				</tr>
+				<tr th:class="even">
+					<td th:each="j : ${#numbers.sequence(0, 6)}">
+						<a th:href="@{'/' + ${userId} + '/daily/' + ${monthStringArray[i][j]}}"
+							th:text="${dailyTotal[i][j]}"> 1日 
+						</a>
+					</td>
+				</tr>
+			</div>
+		</table>
+	</div>
+</body>
+</html>

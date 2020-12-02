@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<!-- bootstrapの設定 -->
+<link th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}"
+	rel="stylesheet"></link>
+<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+
+<title>Add</title>
+</head>
+<body class="text-center">
+	<div th:fragment="add_contents">
+	<br>
+		<form method = "post" th:action = "@{'/' + ${userId} + '/daily/' + ${strDate} +'/add'}" th:object = "${addForm}">
+			<table class = "add">
+				<!-- 日の入力エリア -->
+				<tr>
+					<th class = "active">登録日</th>
+					<td>
+						<div class = "form-group">
+							<input type = "text" class = "form-control" readonly="readonly" 
+									placeholder = "yyyy-MM-dd" th:field = "*{day}"/>
+						</div>
+					</td>
+				</tr>
+				<!-- カテゴリの入力エリア -->
+				<tr>
+					<th class = "active">カテゴリ</th>
+					<td>
+						<div class = "form-group" th:classappend="${#fields.hasErrors('category')}?'has-error'">
+							<input type = "text" class = "form-control" th:field = "*{category}"/>
+							<!-- 個別エラーメッセージの表示 -->
+							<span class="text-danger"
+								th:if="${#fields.hasErrors('category')}"
+								th:errors="*{category}">
+								category error
+							</span>
+						</div>
+					</td>
+				</tr>
+				<!-- 金額の入力エリア -->
+				<tr>
+					<th class = "active">金額</th>
+					<td>
+						<div class = "form-group" th:classappend="${#fields.hasErrors('price')}?'has-error'">
+							<input type = "text" class = "form-control" th:field = "*{price}">
+						</div> 
+						<!-- 個別エラーメッセージの表示 -->
+							<span class="text-danger"
+								th:if="${#fields.hasErrors('price')}"
+								th:errors="*{price}">
+								price error
+							</span>
+					</td>
+				</tr>
+				<!-- コメントの入力エリア -->
+				<tr>
+					<th class = "active">コメント</th>
+					<td>
+						<div class = "form-group">
+							<input type = "text" class = "form-control" th:field = "*{comment}">
+						</div>
+					</td>
+				</tr>
+			</table>
+			
+			<!-- 登録ボタン -->
+			<button class = "btn btn-primary" type = "submit">
+				登録
+			</button>
+		</form>
+	</div>
+</body>
+</html>

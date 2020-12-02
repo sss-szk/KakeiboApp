@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org">
+<head>
+	<meta charset = "UTF-8"></meta>
+	<!-- bootstrapの設定 -->
+	<link th:href = "@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}" rel = "stylesheet"></link>
+	<script th:src = "@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script th:src = "@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+	
+	<title>Sign Up</title>
+</head>
+<body>
+	<div th:fragment="signup_contents">
+	<br>
+		<form method = "post" th:action = "@{/signup}" th:object = "${signupForm}">
+			<table class = "signup">
+				<!-- ユーザIDの入力エリア -->
+				<tr>
+					<th class = "active">ユーザID</th>
+					<td>
+						<div class = "form-group" 
+							th:classappend="${#fields.hasErrors('userId')}?'has-error'">
+							<input type = "text" class = "form-control" th:field = "*{userId}"/>
+							
+							<!-- 個別エラーメッセージの表示 -->
+							<span class="text-danger"
+								th:if="${#fields.hasErrors('userId')}"
+								th:errors="*{userId}">
+								userId error
+							</span>
+							<span class="text-danger"
+								th:if="${userIdError} != null"
+								th:text="${userIdError}"
+								>
+								userId error
+							</span>
+						</div>
+					</td>
+				</tr>
+				<!-- パスワードの入力エリア -->
+				<tr>
+					<th class = "active">パスワード</th>
+					<td>
+						<div class = "form-group"
+							th:classappend = "${#fields.hasErrors('password')}?'has-error'">
+							<input type = "text" class = "form-control" th:field = "*{password}">
+							
+							<!-- 個別エラーメッセージの表示 -->
+							<span class="text-danger"
+								th:if="${#fields.hasErrors('password')}"
+								th:errors="*{password}">
+								password error
+							</span>
+						</div> 
+					</td>
+				</tr>
+			</table>
+			
+			<!-- ユーザ登録ボタン -->
+			<button class = "btn btn-primary" type = "submit">
+				ユーザ登録
+			</button>
+		</form>
+	</div>
+</body>
+</html>

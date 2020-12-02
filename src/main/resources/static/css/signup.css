@@ -1,0 +1,24 @@
+table.signup{
+	width:600px
+	border-collapse: collapse;
+}
+
+table.signup th{
+	vertical-align: middle;
+	padding-right:15px;
+}
+
+table.signup td {
+	vertical-align: middle;
+	height:100px;
+	padding-top:15px;
+}
+
+table.signup input[type=text]{
+	border: 1px solid #545454;
+}
+
+table.signup input[type=text]:focus{
+	border: 1px solid #1b2538;
+	vertical-align: middle;
+}

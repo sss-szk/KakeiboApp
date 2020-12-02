@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<!-- bootstrapの設定 -->
+<link th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}"
+	rel="stylesheet"></link>
+<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+
+<title>Daily</title>
+</head>
+<body class="text-center">
+	<div th:fragment="daily_contents">
+		<h2 th:text="${#dates.format(clickedDate, 'M月dd日')}"></h2>
+
+		<table class="daily">
+			<tr>
+				<th>カテゴリ</th>
+				<th>金額</th>
+				<th>コメント</th>
+			</tr>
+			<tr th:each="data : ${dailyList}">
+				<td th:text="${data.category}"></td>
+				<td th:text="${data.stringPrice}"></td>
+				<td th:text="${data.comment}"></td>
+				<td><a class="btn btn-danger"
+					th:href="@{'/' + ${userId} + '/daily/' + ${strDate} +'/delete/' + ${data.id} }">
+						削除 </a></td>
+			</tr>
+			<tr class="bottom">
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td th:text="${total}"></td>
+				<td></td>
+			</tr>
+		</table>
+
+		<br> <a class="btn btn-primary"
+			th:href="@{'/' + ${userId} + '/daily/' + ${strDate} +'/add'}"> 追加</a>
+
+	</div>
+</body>
+</html>

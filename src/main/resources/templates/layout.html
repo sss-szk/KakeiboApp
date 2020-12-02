@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!-- 
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	 -->
+<head>
+<meta charset="UTF-8"></meta>
+
+<!-- Bootstrapの設定 -->
+<link th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}"
+	rel="stylesheet"></link>
+<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.16.0/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+
+<!-- CSSの読込 -->
+<link th:href="@{/css/home.css}" rel="stylesheet"></link>
+<link th:href="@{/css/calendar.css}" rel="stylesheet"></link>
+<link th:href="@{/css/daily.css}" rel="stylesheet"></link>
+<link th:href="@{/css/add.css}" rel="stylesheet"></link>
+<link th:href="@{/css/signup.css}" rel="stylesheet"></link>
+
+<title>Home</title>
+</head>
+<body>
+	<!-- ヘッダー -->
+	<nav
+		class="navbar navbar-dark bg-dark navbar-inverse navbar-fixed-top p-1">
+		<div class="container-fluid">
+			<!-- アプリ名をクリックした時の遷移先をログイン前と後で別にする -->
+			<div th:if="${userId} == null">
+				<a class="navbar-brand" href="/home">Kakeibo App</a>
+			</div>
+			<div th:if="${userId} != null">
+				<a class="navbar-brand" href="/homeLogin">Kakeibo App</a>
+			</div>
+			
+			<span th:if="${userId} != null" th:text="${userId}" class="navbar-text navbar-right">ログイン中のユーザーID</span>
+			
+			<ul class="navbar-nav">			 	
+				<div th:if="${userId} == null">
+					<form method="get" th:action="@{/login}">
+						<button class="btn btn-primary pull-right navbar-brand"
+							type="submit">ログイン</button>
+					</form>
+				</div>
+				<div th:if="${userId} != null">
+					<form method="get" th:action="@{/logout}">
+						<button class="btn btn-primary pull-right navbar-brand"
+							type="submit">ログアウト</button>
+					</form>
+				</div>
+			</ul>
+		</div>
+	</nav>
+
+	<!-- サイドバー -->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2 sidebar">
+				<ul class="nav nav-pills nav-stacked">
+					<li class="nav-item" role="presentation"><a class="nav-link"
+						th:href="@{'/' + ${userId} + '/monthly'}">カレンダー</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- コンテンツ -->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-10 offset-sm-2 main">
+				<div th:include="__${contents}__"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

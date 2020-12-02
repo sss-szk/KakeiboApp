@@ -1,0 +1,30 @@
+.body{
+	padding-top:0px;
+}
+
+.sidebar{
+	position:fixed;
+	display:block;
+	top:50px;
+	bottom:0;
+	background-color:#F4F5F7;
+}
+
+.main{
+	padding-top:0px;
+	padding-left:20px;
+	display:block;
+	top:0px;
+	bottom:0;
+}
+
+.navbar-dark .navbar-text {
+    color: rgb(255, 255, 255);
+    margin-left: auto;
+    padding-right: 20px;
+}
+
+
+
+
+
